@@ -121,7 +121,7 @@ a:hover { color: var(--green-900); }
   font-size: 1.25rem;
 }
 .brand-mark { border-radius: 8px; }
-.brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.05; gap: 4px; }
 .brand-sub {
   font-family: var(--font-body);
   font-weight: 500;
@@ -646,7 +646,24 @@ a:hover { color: var(--green-900); }
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; gap: 36px; }
-  .hero-photo { order: -1; max-width: 380px; }
+  .hero-copy { text-align: center; }
+  .hero-lede { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-photo { width: 200px; }
+  .hero-photo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .photo-badge {
+    padding: 7px 11px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .photo-badge strong { font-size: 0.92rem; }
+  .photo-badge span { font-size: 0.68rem; }
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .service-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -723,7 +740,7 @@ a:hover { color: var(--green-900); }
   .hero-stats { gap: 24px; }
   .service-grid { grid-template-columns: 1fr; }
   .contact-list { grid-template-columns: 1fr; }
-  .photo-badge { left: 12px; bottom: 12px; }
+  .photo-badge { left: 10px; bottom: -20px; }
   .footer-tag { margin-left: 0; }
   .about-photos { grid-template-columns: 1fr; }
 }
