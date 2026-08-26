@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 const SERVICE_OPTIONS = [
-  "Snow removal",
   "Garden clean up",
   "Stump grinding",
   "Mowing",
@@ -12,6 +11,7 @@ const SERVICE_OPTIONS = [
   "Fences",
   "Junk removal",
   "General repairs",
+  "Snow removal",
   "Something else",
 ];
 
