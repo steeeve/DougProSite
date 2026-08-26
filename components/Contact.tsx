@@ -23,6 +23,7 @@ const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [service, setService] = useState(SERVICE_OPTIONS[0]);
   const [message, setMessage] = useState("");
   const [note, setNote] = useState<string | null>(null);
@@ -50,6 +51,7 @@ export default function Contact() {
         body: JSON.stringify({
           name,
           email,
+          phone,
           service,
           message,
           _subject: `New quote request from ${name}`,
@@ -62,6 +64,7 @@ export default function Contact() {
       );
       setName("");
       setEmail("");
+      setPhone("");
       setService(SERVICE_OPTIONS[0]);
       setMessage("");
     } catch {
@@ -118,6 +121,19 @@ export default function Contact() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="phone">
+              Phone <span className="optional">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autoComplete="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="field">
