@@ -15,29 +15,59 @@ const SERVICE_OPTIONS = [
   "Something else",
 ];
 
+// Formspree form ID (the last path segment of your Formspree endpoint).
+// Set NEXT_PUBLIC_FORMSPREE_ID in .env.local so it's available in the browser.
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
+
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [service, setService] = useState(SERVICE_OPTIONS[0]);
   const [message, setMessage] = useState("");
   const [note, setNote] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    setNote(
-      `Thanks, ${name || "friend"}! Your message is ready to send — Doug will be in touch soon.`
-    );
-    setName("");
-    setEmail("");
-    setPhone("");
-    setService(SERVICE_OPTIONS[0]);
-    setMessage("");
+    if (!FORMSPREE_ID) {
+      setNote("This form isn't configured yet. Please email Doug directly at doug.moisuk@gmail.com.");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          service,
+          message,
+          _subject: `New quote request from ${name}`,
+        }),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setStatus("success");
+      setNote(
+        `Thanks, ${name || "friend"}! Your message is on its way to Doug — he'll be in touch soon.`
+      );
+      setName("");
+      setEmail("");
+      setService(SERVICE_OPTIONS[0]);
+      setMessage("");
+    } catch {
+      setStatus("error");
+      setNote("Something went wrong sending your message. Please try again, or email Doug directly at doug.moisuk@gmail.com.");
+    }
   };
 
   return (
@@ -52,12 +82,8 @@ export default function Contact() {
           </p>
           <ul className="contact-list">
             <li>
-              <span className="contact-label">Phone</span>
-              <a href="tel:+15555550123">(555) 555-0123</a>
-            </li>
-            <li>
               <span className="contact-label">Email</span>
-              <a href="mailto:doug@dougprohandyman.com">doug@dougprohandyman.com</a>
+              <a href="mailto:doug.moisuk@gmail.com">doug.moisuk@gmail.com</a>
             </li>
             <li>
               <span className="contact-label">Hours</span>
@@ -95,19 +121,6 @@ export default function Contact() {
             />
           </div>
           <div className="field">
-            <label htmlFor="phone">
-              Phone <span className="optional">(optional)</span>
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              autoComplete="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <div className="field">
             <label htmlFor="service">What do you need?</label>
             <select
               id="service"
@@ -133,8 +146,12 @@ export default function Contact() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            Request a Quote
+          <button
+            type="submit"
+            className="btn btn-primary btn-block"
+            disabled={status === "sending"}
+          >
+            {status === "sending" ? "Sending…" : "Request a Quote"}
           </button>
           {note && (
             <p className="form-note" role="status" aria-live="polite">
