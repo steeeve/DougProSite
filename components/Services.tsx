@@ -1,23 +1,18 @@
 const SERVICES = [
   {
-    icon: "❄️",
-    title: "Snow Removal",
-    desc: "Driveways, walkways, and decks cleared early so your day doesn't start with a shovel.",
-  },
-  {
     icon: "🌿",
     title: "Garden Clean Up",
     desc: "Seasonal tidy-ups, overgrowth cleared, beds refreshed — ready for whatever's next.",
   },
   {
+    icon: "🌱",
+    title: "Mowing",
+    desc: "Crisp, even cuts and clean edges — lawns that look cared for, not just cut.",
+  },
+  {
     icon: "🪵",
     title: "Stump Grinding",
     desc: "Unsightly stumps ground down below grade so the area is safe, level, and usable.",
-  },
-  {
-    icon: "🛡️",
-    title: "Mowing",
-    desc: "Crisp, even cuts and clean edges — lawns that look cared for, not just cut.",
   },
   {
     icon: "💧",
@@ -30,7 +25,7 @@ const SERVICES = [
     desc: "Patios, walkways, and stepping stones laid level and built to stay put.",
   },
   {
-    icon: "🚧",
+    icon: "🪚",
     title: "Fences",
     desc: "Repairs and new installs — straight, sturdy, and built to weather the years.",
   },
@@ -43,6 +38,11 @@ const SERVICES = [
     icon: "🛠️",
     title: "General Repairs",
     desc: "The little things that pile up — fixed, tightened, replaced, and done right.",
+  },
+  {
+    icon: "❄️",
+    title: "Snow Removal",
+    desc: "Driveways, walkways, and decks cleared early so your day doesn't start with a shovel.",
   },
 ];
 

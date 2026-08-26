@@ -1,3 +1,5 @@
+import HeroGallery from "./HeroGallery";
+
 export default function Hero() {
   return (
     <section className="hero">
@@ -16,7 +18,7 @@ export default function Hero() {
             <a className="btn btn-primary" href="#contact">
               Get a Free Quote
             </a>
-            <a className="btn btn-ghost" href="#gallery">
+            <a className="btn btn-ghost" href="#services">
               See the Work
             </a>
           </div>
@@ -36,16 +38,7 @@ export default function Hero() {
           </ul>
         </div>
         <div className="hero-photo">
-          <img
-            src="/assets/doug-profile.png"
-            alt="Portrait of Doug, owner of Doug Pro Handyman Services"
-            width={560}
-            height={560}
-          />
-          <div className="photo-badge">
-            <strong>Doug</strong>
-            <span>Owner &amp; operator</span>
-          </div>
+          <HeroGallery />
         </div>
       </div>
     </section>
